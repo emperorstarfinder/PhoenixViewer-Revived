@@ -590,6 +590,7 @@ void LLPanelGroupVoting::impl::sendGroupProposalsRequest(const LLUUID& group_id)
 	//we're pining the server in high latency situations
 	addPendingActiveScrollListItem(0, 0, ADD_BOTTOM);
 	mProposals->setCanSelect(FALSE);
+	mBtnViewProposalItem->setEnabled(FALSE);
 
 	LLMessageSystem *msg = gMessageSystem;
 	msg->newMessageFast(_PREHASH_GroupActiveProposalsRequest);
@@ -868,6 +869,7 @@ void LLPanelGroupVoting::impl::sendGroupVoteHistoryRequest(const LLUUID& group_i
 	//add some text so the user knows we're doing something
 	addPendingHistoryScrollListItem(0, 0, ADD_BOTTOM);
 	mVotesHistory->setCanSelect(FALSE);
+	mBtnViewHistoryItem->setEnabled(FALSE);
 
 	LLMessageSystem *msg = gMessageSystem;
 	msg->newMessageFast(_PREHASH_GroupVoteHistoryRequest);
@@ -1064,6 +1066,7 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 		//no active proposals and make the scroll list unselectable
 		self->addNoActiveScrollListItem(ADD_BOTTOM);
 		self->mProposals->setCanSelect(FALSE);
+		self->mBtnViewProposalItem->setEnabled(FALSE);
 	}
 	else if ( (U32)received != num_expected )
 	{
@@ -1071,6 +1074,7 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 											 num_expected,
 											 ADD_BOTTOM);
 		self->mProposals->setCanSelect(FALSE);
+		self->mBtnViewProposalItem->setEnabled(FALSE);
 	}
 	else
 	{
@@ -1084,6 +1088,7 @@ void LLPanelGroupVoting::impl::processGroupActiveProposalItemReply(LLMessageSyst
 		}
 
 		self->mProposals->setCanSelect(TRUE);
+		self->mBtnViewProposalItem->setEnabled(TRUE);
 	}
 }
 
@@ -1132,6 +1137,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 		//no active proposals and make the scroll list unselectable
 		self->addNoHistoryScrollListItem(ADD_BOTTOM);
 		self->mVotesHistory->setCanSelect(FALSE);
+		self->mBtnViewHistoryItem->setEnabled(FALSE);
 
 		return;
 	}
@@ -1247,6 +1253,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 											  num_expected,
 											  ADD_BOTTOM);
 		self->mVotesHistory->setCanSelect(FALSE);
+		self->mBtnViewHistoryItem->setEnabled(FALSE);
 	}
 	else
 	{
@@ -1260,6 +1267,7 @@ void LLPanelGroupVoting::impl::processGroupVoteHistoryItemReply(LLMessageSystem 
 		}
 
 		self->mVotesHistory->setCanSelect(TRUE);
+		self->mBtnViewHistoryItem->setEnabled(TRUE);
 	}
 }
 

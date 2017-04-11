@@ -742,6 +742,11 @@ void LLScrollListCtrl::clearRows()
 
 LLScrollListItem* LLScrollListCtrl::getFirstSelected() const
 {
+	if (!getCanSelect())
+	{
+		return NULL;
+	}
+
 	item_list::const_iterator iter;
 	for(iter = mItemList.begin(); iter != mItemList.end(); iter++)
 	{
@@ -751,12 +756,18 @@ LLScrollListItem* LLScrollListCtrl::getFirstSelected() const
 			return item;
 		}
 	}
+
 	return NULL;
 }
 
 std::vector<LLScrollListItem*> LLScrollListCtrl::getAllSelected() const
 {
 	std::vector<LLScrollListItem*> ret;
+	if (!getCanSelect())
+	{
+		return ret;
+	}
+
 	item_list::const_iterator iter;
 	for(iter = mItemList.begin(); iter != mItemList.end(); iter++)
 	{
@@ -766,6 +777,7 @@ std::vector<LLScrollListItem*> LLScrollListCtrl::getAllSelected() const
 			ret.push_back(item);
 		}
 	}
+
 	return ret;
 }
 
@@ -783,6 +795,11 @@ LLDynamicArray<LLUUID> LLScrollListCtrl::getSelectedIDs()
 
 S32 LLScrollListCtrl::getFirstSelectedIndex() const
 {
+	if (!getCanSelect())
+	{
+		return -1;
+	}
+
 	S32 CurSelectedIndex = 0;
 	item_list::const_iterator iter;
 	for (iter = mItemList.begin(); iter != mItemList.end(); iter++)
@@ -792,6 +809,7 @@ S32 LLScrollListCtrl::getFirstSelectedIndex() const
 		{
 			return CurSelectedIndex;
 		}
+
 		CurSelectedIndex++;
 	}
 
